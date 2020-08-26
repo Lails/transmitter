@@ -13,7 +13,7 @@ namespace Lailts.Template.Service.Tests
 	{
 		protected IServiceCollection Services;
 		protected IServiceProvider Provider;
-		protected IDbCRUD<LailsDbContext> DbCRUD;
+		protected BaseDbCRUD<LailsDbContext> DbCRUD;
 		protected LailsDbContext Context;
 
 		[OneTimeSetUp]
@@ -25,14 +25,14 @@ namespace Lailts.Template.Service.Tests
 				.AddDbContext<LailsDbContext>((serviceProvider, options) => options.UseInMemoryDatabase("LailsDbContext").UseInternalServiceProvider(serviceProvider));
 
 			Services
-				.AddTransient<IDbCRUD<LailsDbContext>, DbCRUD<LailsDbContext>>();
+				.AddTransient<BaseDbCRUD<LailsDbContext>, DbCRUD<LailsDbContext>>();
 
 			Provider = Services.BuildServiceProvider();
 
+			
 
 			Context = (LailsDbContext)Provider.GetService(typeof(LailsDbContext));
-			DbCRUD = (IDbCRUD<LailsDbContext>)Provider.GetService(typeof(IDbCRUD<LailsDbContext>));
-
+			DbCRUD = (BaseDbCRUD<LailsDbContext>)Provider.GetService(typeof(BaseDbCRUD<LailsDbContext>));
 		}
 
 		[OneTimeTearDown]

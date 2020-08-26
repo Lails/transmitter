@@ -2,6 +2,7 @@ using Lails.DBContext;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -27,7 +28,7 @@ namespace Lailts.Template.Service.Tests
 			Context.Customers.Add(customer);
 			Context.SaveChanges();
 
-			var customerResult = DbCRUD.Retriever<Customer>().GetById(customer.Id).Result;
+			Customer customerResult = null;// DbCRUD.Retriever<Customer>().GetById(customer.Id).Result;
 
 			Assert.AreEqual(customer, customerResult);
 		}
@@ -40,7 +41,7 @@ namespace Lailts.Template.Service.Tests
 			var filter = CustomerRetriver.Create()
 				.SetFirstName(firstName);
 
-			var customersResult = DbCRUD.Retriever<Customer>().GetByFilterAsync(filter).Result;
+			List<Customer> customersResult = null;//  DbCRUD.Retriever<Customer>().GetByFilterAsync(filter).Result;
 
 			Assert.AreEqual(expectedCount, customersResult.Count);
 		}
@@ -48,7 +49,7 @@ namespace Lailts.Template.Service.Tests
 		[Test]
 		public void Retriever_GetAllElementsByFilterNull_RetrunsOneElement()
 		{
-			var customersResult = DbCRUD.Retriever<Customer>().GetByFilterAsync(null).Result;
+			List<Customer> customersResult = null;//  DbCRUD.Retriever<Customer>().GetByFilterAsync(null).Result;
 
 			Assert.AreEqual(Context.Customers.Count(), customersResult.Count);
 		}
@@ -56,7 +57,7 @@ namespace Lailts.Template.Service.Tests
 		[Test]
 		public void Retriever_GetAllElementsByAction_RetrunsOneElement()
 		{
-			var customersResult = DbCRUD.Retriever<Customer>().GetByAction(r => r.FirstName.ToUpper().Contains("angry".ToUpper())).Result;
+			List<Customer> customersResult = null;// DbCRUD.Retriever<Customer>().GetByAction(r => r.FirstName.ToUpper().Contains("angry".ToUpper())).Result;
 
 			Assert.AreEqual(1, customersResult.Count);
 		}
@@ -64,7 +65,7 @@ namespace Lailts.Template.Service.Tests
 		[Test]
 		public void Retriever_GetAllElementsByActionNull_RetrunsOneElement()
 		{
-			var customersResult = DbCRUD.Retriever<Customer>().GetByAction(null).Result;
+			List<Customer> customersResult = null;//  DbCRUD.Retriever<Customer>().GetByAction(null).Result;
 
 			Assert.AreEqual(Context.Customers.Count(), customersResult.Count);
 		}
@@ -72,13 +73,13 @@ namespace Lailts.Template.Service.Tests
 		[Test]
 		public void Retriever_CheckTracking_ReturnsSuccessChanges()
 		{
-			
+
 
 			var newCustomer = new Customer { FirstName = MethodBase.GetCurrentMethod().Name };
 			Context.Add(newCustomer);
 			Context.SaveChanges();
 
-			var customer = DbCRUD.Retriever<Customer>().GetById(newCustomer.Id).Result;
+			Customer customer = null;//  DbCRUD.Retriever<Customer>().GetById(newCustomer.Id).Result;
 			customer.FirstName += "_changed";
 			Context.SaveChanges();
 
@@ -93,7 +94,7 @@ namespace Lailts.Template.Service.Tests
 			Context.Add(newCustomer);
 			Context.SaveChanges();
 
-			var customer = DbCRUD.RetrieverAsNotTracking<Customer>().GetById(newCustomer.Id).Result;
+			Customer customer = null;//  DbCRUD.RetrieverAsNotTracking<Customer>().GetById(newCustomer.Id).Result;
 			customer.FirstName += "_changed";
 			Context.SaveChanges();
 
