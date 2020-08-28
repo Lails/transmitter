@@ -9,15 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lailts.Template.Service.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter.DBConnector", "Lails.Transmitter.DBConnector\Lails.Transmitter.DBConnector.csproj", "{DBEB2CB1-38B1-4A97-8754-F030E6FF59D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter.Commander", "Lails.Transmitter.Commander\Lails.Transmitter.Commander.csproj", "{B4FFAD9B-0F77-4F15-97F0-53A6C3824215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter", "Lails.Transmitter\Lails.Transmitter.csproj", "{B4FFAD9B-0F77-4F15-97F0-53A6C3824215}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.DBContext", "Lails.DBContext\Lails.DBContext.csproj", "{8787CA9C-445A-402D-9289-6B63A5595756}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter.Retriever", "Lails.Transmitter.Retriever\Lails.Transmitter.Retriever.csproj", "{DFB42146-6431-4664-AD9A-0B7BEAA2C399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lails.Transmitter.UtilityClasses", "Lails.Transmitter.UtilityClasses\Lails.Transmitter.UtilityClasses.csproj", "{5A87C6FB-9B3D-4150-9A1D-5BA603CE99EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter.UtilityClasses", "Lails.Transmitter.UtilityClasses\Lails.Transmitter.UtilityClasses.csproj", "{5A87C6FB-9B3D-4150-9A1D-5BA603CE99EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lails.Transmitter.UtilityClasses.Tests", "Lails.Transmitter.UtilityClasses.Tests\Lails.Transmitter.UtilityClasses.Tests.csproj", "{0EFC8A8B-9315-4BB5-B7EF-3462426FC0DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter.UtilityClasses.Tests", "Lails.Transmitter.UtilityClasses.Tests\Lails.Transmitter.UtilityClasses.Tests.csproj", "{0EFC8A8B-9315-4BB5-B7EF-3462426FC0DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

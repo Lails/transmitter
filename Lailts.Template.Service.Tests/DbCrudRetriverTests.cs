@@ -73,8 +73,6 @@ namespace Lailts.Template.Service.Tests
 		[Test]
 		public void Retriever_CheckTracking_ReturnsSuccessChanges()
 		{
-
-
 			var newCustomer = new Customer { FirstName = MethodBase.GetCurrentMethod().Name };
 			Context.Add(newCustomer);
 			Context.SaveChanges();
@@ -102,5 +100,6 @@ namespace Lailts.Template.Service.Tests
 
 			Assert.AreEqual(reloadedCustomer.FirstName, MethodBase.GetCurrentMethod().Name);
 		}
+		//TODO: Add test, what will write AsNotraking in QueryDefinition
 	}
 }

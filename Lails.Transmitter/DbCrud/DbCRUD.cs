@@ -2,13 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Lails.Transmitter.Commander
+namespace Lails.Transmitter.DbCrud
 {
-	//TODO: MAKE EXTANSION FOR RESOLVE THIS OBJECT
-	//TODO: TO THINK MORE ABOUT BaseCommand<TDbContext>.SetDbCRUD(this);
-	public sealed class DbCRUD<TDbContext> : BaseDbCRUD<TDbContext> where TDbContext : DbContext
+	internal sealed class DbCRUD<TDbContext> : IDbCRUD<TDbContext> where TDbContext : DbContext
 	{
 		readonly TDbContext _context;
 		public DbCRUD(IServiceProvider provider)
@@ -18,31 +17,9 @@ namespace Lails.Transmitter.Commander
 			{
 				throw new NullReferenceException($"DbContext is null.");
 			}
-			BaseCommand<TDbContext>.SetDbCRUD(this);
 		}
 
-		/*
-
-public ICommand<TEntity> For<TEntity>() where TEntity : class
-{
-	var command = new Command<TDbContext, TEntity>(_context);
-	return command;
-}*/
-
-
-		internal override IRetriever<TEntity, TDbContext> Retriever<TEntity>()
-		{
-			return new Retriver<TEntity, TDbContext>(_context, false);
-		}
-
-		internal override IRetriever<TEntity, TDbContext> RetrieverAsNotTracking<TEntity>()
-		{
-			return new Retriver<TEntity, TDbContext>(_context, true);
-		}
-
-
-
-		internal override async Task CreateAsync<TData>(TData data)
+		public async Task CreateAsync<TData>(TData data) where TData : class
 		{
 			if (data == null)
 			{
@@ -63,7 +40,7 @@ public ICommand<TEntity> For<TEntity>() where TEntity : class
 			await _context.SaveChangesAsync();
 		}
 
-		internal override async Task UpdateAsync<TData>(TData data)
+		public async Task UpdateAsync<TData>(TData data) where TData : class
 		{
 			if (data is IEnumerable enities)
 			{
@@ -79,7 +56,7 @@ public ICommand<TEntity> For<TEntity>() where TEntity : class
 			await _context.SaveChangesAsync();
 		}
 
-		internal override async Task DeleteAsync<TData>(TData data)
+		public async Task DeleteAsync<TData>(TData data) where TData : class
 		{
 			if (data is IEnumerable enities)
 			{
@@ -93,6 +70,16 @@ public ICommand<TEntity> For<TEntity>() where TEntity : class
 				_context.Remove(data);
 			}
 			await _context.SaveChangesAsync();
+		}
+
+		public IRetriever<TEntity, TDbContext> Retriever<TEntity>() where TEntity : class
+		{
+			throw new NotImplementedException();
+		}
+
+		public IRetriever<TEntity, TDbContext> RetrieverAsNotTracking<TEntity>() where TEntity : class
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

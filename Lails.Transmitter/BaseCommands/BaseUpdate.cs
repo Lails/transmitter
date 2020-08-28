@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Lails.Transmitter.DbCrud;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace Lails.Transmitter.Commander
+namespace Lails.Transmitter.BaseCommands
 {
-	public class BaseUpdate<TData, TDbContext> : BaseCommand<TDbContext>
+	public class BaseUpdate<TData, TDbContext>
 		where TData : class
 		where TDbContext : DbContext
 	{
+		internal static IDbCRUD<TDbContext> DbCRUD => BaseCRUD<TDbContext>.DbCRUD;
+
 		public static async Task UpdateAsync(TData data)
 		{
 			//we can add service provider here if need;
@@ -18,11 +21,11 @@ namespace Lails.Transmitter.Commander
 
 			await baseUpdate.AfterUpdateAsync(data);
 
-			await baseUpdate.ChangeTrackerAsync( );
+			await baseUpdate.ChangeTrackerAsync();
 		}
 
 		protected virtual async Task BeforeUpdateAsync(TData data) { }
 		protected virtual async Task AfterUpdateAsync(TData data) { }
-		protected virtual async Task ChangeTrackerAsync(/*todo*/) { }
+		protected virtual async Task ChangeTrackerAsync(/*TODO:*/) { }
 	}
 }

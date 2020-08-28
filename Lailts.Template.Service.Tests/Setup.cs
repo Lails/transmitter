@@ -1,5 +1,5 @@
 ﻿using Lails.DBContext;
-using Lails.Transmitter.Commander;
+using Lails.Transmitter.DbCrud;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -11,28 +11,28 @@ namespace Lailts.Template.Service.Tests
 
 	public class Setup
 	{
-		protected IServiceCollection Services;
-		protected IServiceProvider Provider;
-		protected BaseDbCRUD<LailsDbContext> DbCRUD;
 		protected LailsDbContext Context;
 
 		[OneTimeSetUp]
 		public void SetUp()
 		{
-			Services = new ServiceCollection();
+			var services = new ServiceCollection();
 
-			Services.AddEntityFrameworkInMemoryDatabase()
+			services
+				.AddEntityFrameworkInMemoryDatabase()
 				.AddDbContext<LailsDbContext>((serviceProvider, options) => options.UseInMemoryDatabase("LailsDbContext").UseInternalServiceProvider(serviceProvider));
 
-			Services
-				.AddTransient<BaseDbCRUD<LailsDbContext>, DbCRUD<LailsDbContext>>();
+			services
+				.AddDbCRUD<LailsDbContext>();
 
-			Provider = Services.BuildServiceProvider();
 
-			
+			var provider = services.BuildServiceProvider();
 
-			Context = (LailsDbContext)Provider.GetService(typeof(LailsDbContext));
-			DbCRUD = (BaseDbCRUD<LailsDbContext>)Provider.GetService(typeof(BaseDbCRUD<LailsDbContext>));
+			provider.
+				AddDbCRUD<LailsDbContext>();
+
+
+			Context = (LailsDbContext)provider.GetService(typeof(LailsDbContext));
 		}
 
 		[OneTimeTearDown]
