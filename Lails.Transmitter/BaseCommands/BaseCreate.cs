@@ -1,27 +1,21 @@
-﻿using Lails.Transmitter.DbCrud;
+﻿using Lails.Transmitter.CrudOperations;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Lails.Transmitter.BaseCommands
 {
-	public class BaseCreate<TData, TDbContext>
+	public class BaseCreate<TDbContext, TData> : BaseCRUD<TDbContext>, IBaseOperation<TDbContext, TData>
 		where TData : class
 		where TDbContext : DbContext
 	{
-		private IDbCRUD<TDbContext> DbCRUD => BaseCRUD<TDbContext>.DbCRUD;
-
-		public static async Task CreateAsync(TData data)
+		public async Task Execute(TData data)
 		{
-			//we can add service provider here if need;
-			var baseCreate = new BaseCreate<TData, TDbContext>();
+			await BeforeCreateAsync(data);
 
-			await baseCreate.BeforeCreateAsync(data);
+			await _dbCRUD.CreateAsync(data);
 
-			await baseCreate.DbCRUD.CreateAsync(data);
-
-			await baseCreate.AfterCreateAsync(data);
+			await AfterCreateAsync(data);
 		}
-
 
 		public virtual async Task BeforeCreateAsync(TData data) { }
 		public virtual async Task AfterCreateAsync(TData data) { }

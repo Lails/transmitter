@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Lails.Transmitter.DbCrud
@@ -10,9 +9,9 @@ namespace Lails.Transmitter.DbCrud
 	internal sealed class DbCRUD<TDbContext> : IDbCRUD<TDbContext> where TDbContext : DbContext
 	{
 		readonly TDbContext _context;
-		public DbCRUD(IServiceProvider provider)
+		public DbCRUD(TDbContext context)
 		{
-			_context = (TDbContext)provider.GetService(typeof(TDbContext));
+			_context = context;
 			if (_context == null)
 			{
 				throw new NullReferenceException($"DbContext is null.");

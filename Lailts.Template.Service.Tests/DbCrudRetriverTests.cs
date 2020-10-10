@@ -1,4 +1,5 @@
 using Lails.DBContext;
+using Lailts.Transmitter.Tests;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Lailts.Template.Service.Tests
+namespace Lailts.Transmitter.Service.Tests
 {
 	public class DbCrudRetriverTests : Setup
 	{

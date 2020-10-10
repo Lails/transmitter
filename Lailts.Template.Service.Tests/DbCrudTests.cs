@@ -1,13 +1,12 @@
 using Lails.DBContext;
-using Lailts.Template.Service.Tests.BusinessLogic.Commands;
+using Lailts.Transmitter.Tests.BusinessLogic.Commands;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Lailts.Template.Service.Tests
+namespace Lailts.Transmitter.Tests
 {
 	public class DbCrudTests : Setup
 	{
@@ -27,29 +26,10 @@ namespace Lailts.Template.Service.Tests
 		{
 			var customer = new Customer { FirstName = "Elizabeth", LastName = "Lincoln", Address = "23 Tsawassen Blvd.", };
 
-			CustomerCreate.CreateAsync(customer).Wait();
+			CRUDBuilder.Build<CustomerCreate>().Execute(customer).Wait();
 
 			var existingCustomer = Context.Customers.Single(r => r.Id == customer.Id);
 			Assert.AreEqual(existingCustomer?.FirstName, customer.FirstName);
-		}
-
-		[Ignore("load test")]
-		[TestCase(10000)]
-		[TestCase(1000)]
-		[TestCase(100)]
-		[Test]
-		public void CreateAsync_CreateManyElements_Success(int customerCount)
-		{
-			var customers = new List<Customer>();
-			for (int i = 0; i < customerCount; i++)
-			{
-				customers.Add(new Customer { FirstName = "Elizabeth", LastName = "Lincoln", Address = "23 Tsawassen Blvd." });
-
-			}
-			CustomersCreate.CreateAsync(customers).Wait();
-
-			var existingCustomers = Context.Customers.Where(r => r.FirstName == "Elizabeth").ToList();
-			Assert.AreEqual(customerCount, existingCustomers?.Count);
 		}
 
 		[Test]
@@ -60,7 +40,7 @@ namespace Lailts.Template.Service.Tests
 			var customer2 = new Customer { FirstName = "CreateRangeAsync", LastName = "Lincoln", Address = "23 Tsawassen Blvd.", };
 			var customers = new[] { customer1, customer2 };
 
-			CustomersCreate.CreateAsync(customers.ToList()).Wait();
+			CRUDBuilder.Build<CustomersCreate>().Execute(customers.ToList()).Wait();
 
 			Assert.AreEqual(countsBeforeCreate + customers.Length, Context.Customers.Count());
 		}
@@ -69,7 +49,7 @@ namespace Lailts.Template.Service.Tests
 		{
 			Customer customer = null;
 
-			var ex = Assert.Throws<AggregateException>(() => { CustomerCreate.CreateAsync(customer).Wait(); });
+			var ex = Assert.Throws<AggregateException>(() => { CRUDBuilder.Build<CustomerCreate>().Execute(customer).Wait(); });
 
 			Assert.AreEqual(ex.InnerException.GetType(), typeof(ArgumentNullException));
 		}
@@ -81,7 +61,7 @@ namespace Lailts.Template.Service.Tests
 			var newFirstName = MethodBase.GetCurrentMethod().Name;
 
 			customer.FirstName = newFirstName;
-			CustomerUpdate.UpdateAsync(customer).Wait();
+			CRUDBuilder.Build<CustomerUpdate>().Execute(customer).Wait();
 
 			var changedCustomer = Context.Customers.Single(r => r.FirstName == newFirstName);
 			Assert.AreEqual(changedCustomer.FirstName, newFirstName);
@@ -96,7 +76,8 @@ namespace Lailts.Template.Service.Tests
 
 			customer.FirstName = newFirstName;
 			customer2.FirstName = newFirstName;
-			CustomersUpdate.UpdateAsync(new[] { customer, customer2 }).Wait();
+
+			CRUDBuilder.Build<CustomersUpdate>().Execute(new[] { customer, customer2 }).Wait();
 
 			var customers = Context.Customers.Where(r => r.FirstName == newFirstName).ToList();
 			Assert.AreEqual(customers.Count, 2);
@@ -107,7 +88,7 @@ namespace Lailts.Template.Service.Tests
 		{
 			var customer = Context.Customers.Single(r => r.FirstName == TestCustomer1.FirstName);
 
-			CustomerDelete.DeleteAsync(customer).Wait();
+			CRUDBuilder.Build<CustomerDelete>().Execute(customer).Wait();
 
 			var deletedCustomer = Context.Customers.FirstOrDefault(r => r.FirstName == TestCustomer1.FirstName);
 			Assert.IsNull(deletedCustomer);
@@ -119,7 +100,7 @@ namespace Lailts.Template.Service.Tests
 			var customer = Context.Customers.Single(r => r.FirstName == TestCustomer1.FirstName);
 			var customer2 = Context.Customers.Single(r => r.FirstName == TestCustomer2.FirstName);
 
-			CustomersDelete.DeleteAsync(new[] { customer, customer2 }).Wait();
+			CRUDBuilder.Build<CustomersDelete>().Execute(new[] { customer, customer2 }).Wait();
 
 			var customers = Context.Customers.Where(r => r.FirstName == TestCustomer1.FirstName || r.FirstName == TestCustomer2.FirstName).ToList();
 			Assert.AreEqual(customers.Count, 0);

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lails.DBContext\Lails.DBContext.csproj" />
+    <ProjectReference Include="..\Lails.DBContext\Lails.Transmitter.DBContext.csproj" />
     <ProjectReference Include="..\Lails.Transmitter\Lails.Transmitter.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 using Lails.Transmitter.Retriever;
 using System.Linq;
 
-namespace Lailts.Template.Service.Tests
+namespace Lailts.Transmitter.Tests
 {
 	public class CustomerRetriver : BaseRetriver<Customer, LailsDbContext>
 	{

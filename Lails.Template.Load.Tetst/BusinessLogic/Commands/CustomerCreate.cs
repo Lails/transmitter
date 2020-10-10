@@ -2,7 +2,7 @@
 using Lails.Transmitter.BaseCommands;
 using System.Collections.Generic;
 
-namespace Lailts.Transmitter.Tests.BusinessLogic.Commands
+namespace Lails.Template.Load.Tetst.BusinessLogic.Commands
 {
 	public class CustomerCreate : BaseCreate<LailsDbContext, Customer>
 	{

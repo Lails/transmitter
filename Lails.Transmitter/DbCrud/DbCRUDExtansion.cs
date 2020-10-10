@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Lails.Transmitter.DbCrud
 {
@@ -9,16 +8,10 @@ namespace Lails.Transmitter.DbCrud
 		public static IServiceCollection AddDbCRUD<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
 		{
 			services
-				.AddTransient<IDbCRUD<TDbContext>, DbCRUD<TDbContext>>();
+				.AddTransient<IDbCRUD<TDbContext>, DbCRUD<TDbContext>>()
+				.AddTransient<CRUDBuilder<TDbContext>>();
 
 			return services;
-		}
-
-		public static IServiceProvider AddDbCRUD<TDbContext>(this IServiceProvider provider) where TDbContext : DbContext
-		{
-			BaseCRUD<TDbContext>.SetServiceProvider(provider);
-
-			return provider;
 		}
 	}
 }
