@@ -9,7 +9,7 @@ namespace Lails.Transmitter.DbCrud
 		{
 			services
 				.AddTransient<IDbCRUD<TDbContext>, DbCRUD<TDbContext>>()
-				.AddTransient<CRUDBuilder<TDbContext>>();
+				.AddTransient<ICRUDBuilder<TDbContext>, CRUDBuilder<TDbContext>>();
 
 			return services;
 		}

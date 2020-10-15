@@ -9,8 +9,8 @@ namespace Lails.Template.Load.Tetst.Consumers
 {
 	public class LoadTestConsumer : IConsumer<ILoadTestEvent>
 	{
-		readonly CRUDBuilder<LailsDbContext> _cRUDBuilder;
-		public LoadTestConsumer(CRUDBuilder<LailsDbContext> cRUDBuilder)
+		readonly ICRUDBuilder<LailsDbContext> _cRUDBuilder;
+		public LoadTestConsumer(ICRUDBuilder<LailsDbContext> cRUDBuilder)
 		{
 			_cRUDBuilder = cRUDBuilder;
 		}

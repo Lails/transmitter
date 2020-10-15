@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Lails.Transmitter.BaseQuery
 {
-	public abstract class BaseQuery<TData, TDbContext> : BaseCRUD<TDbContext>, IBaseOperation<TDbContext, TData>
+	public abstract class BaseQuery<TData, TDbContext> : BaseCRUD<TDbContext>
 		where TData : class
 		where TDbContext : DbContext
 	{
