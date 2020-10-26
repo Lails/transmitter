@@ -32,8 +32,8 @@
  
 	//filter example:	
 	CustomerFilter filter = new CustomerFilter { Id = customer.Id };
-	var r = await _cRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter);
-	
+	var customers = await _cRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter);
+	//Here the variable "customers" every time will be List<Customer>.
 	
 	//Filter example.
 	//public class CustomerQuery : BaseQuery<Customer, CustomerFilter, YOURDbContext>
