@@ -9,7 +9,8 @@ namespace Lailts.Transmitter.Tests.BusinessLogic.Queries
 	{
 		public override IQueryable<Customer> QueryDefinition(ref IQueryable<Customer> query)
 		{
-			return query;
+			return query
+				.Include(r => r.Invoices);
 		}
 
 		public override IQueryable<Customer> QueryFilter(ref IQueryable<Customer> query, CustomerFilter filter)
