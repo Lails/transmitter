@@ -1,7 +1,9 @@
-﻿using Lails.Transmitter.Retriever;
+﻿using Lails.Transmitter.BaseQuery;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Lails.Transmitter.DbCrud
@@ -71,14 +73,26 @@ namespace Lails.Transmitter.DbCrud
 			await _context.SaveChangesAsync();
 		}
 
-		public IRetriever<TEntity, TDbContext> Retriever<TEntity>() where TEntity : class
-		{
-			throw new NotImplementedException();
-		}
 
-		public IRetriever<TEntity, TDbContext> RetrieverAsNotTracking<TEntity>() where TEntity : class
+
+		public async Task<List<TEntity>> GetByFilterAsync<TEntity, TFilter>(BaseQuery<TEntity, TFilter, TDbContext> definedQuery)
+			where TEntity : class
+			where TFilter : IQueryFilter
 		{
-			throw new NotImplementedException();
+			var query = _context.Set<TEntity>().AsQueryable();
+
+			definedQuery.QueryDefinition(ref query);
+			if (definedQuery.Filter != null)
+			{
+				definedQuery.QueryFilter(ref query, definedQuery.Filter);
+			}
+
+			query = definedQuery.IsAsNoTracking
+				? query.AsNoTracking()
+				: query.AsTracking();
+
+			var result = await query.ToListAsync();
+			return result;
 		}
 	}
 }

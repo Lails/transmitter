@@ -1,5 +1,6 @@
 using Lails.DBContext;
 using Lailts.Transmitter.Tests;
+using Lailts.Transmitter.Tests.BusinessLogic.Queries;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using System;
@@ -25,13 +26,25 @@ namespace Lailts.Transmitter.Service.Tests
 		[Test]
 		public void Retriever_GetElementById_RetrunsOneElement()
 		{
-			var customer = new Customer { Id = Guid.NewGuid(), FirstName = "Sarah", LastName = "Conor", Address = "Sydnay" };
+			var customer = new Customer
+			{
+				Id = Guid.NewGuid(),
+				FirstName = "Sarah",
+				LastName = "Conor",
+				Address = "Sydney",
+				Invoices = new List<Invoice> { new Invoice { Date = DateTime.UtcNow } }
+			};
 			Context.Customers.Add(customer);
 			Context.SaveChanges();
+			var filter = CustomerFilter.Create()
+				.SetId(customer.Id);
 
-			Customer customerResult = null;// DbCRUD.Retriever<Customer>().GetById(customer.Id).Result;
 
-			Assert.AreEqual(customer, customerResult);
+			List<Customer> customersResult = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
+
+			var r = Context.Customers.FirstOrDefault(r => r.Id == customer.Id);
+
+			Assert.AreEqual(customer, customersResult.Single());
 		}
 
 		[TestCase("Angry", 1)]
@@ -39,10 +52,10 @@ namespace Lailts.Transmitter.Service.Tests
 		[Test]
 		public void Retriever_GetElementsByFilter_RetrunsElementsExpectedCount(string firstName, int expectedCount)
 		{
-			var filter = CustomerRetriver.Create()
-				.SetFirstName(firstName);
+			var filter = CustomerFilter.Create()
+				.SetfirstName(firstName);
 
-			List<Customer> customersResult = null;//  DbCRUD.Retriever<Customer>().GetByFilterAsync(filter).Result;
+			List<Customer> customersResult = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
 
 			Assert.AreEqual(expectedCount, customersResult.Count);
 		}
@@ -50,23 +63,7 @@ namespace Lailts.Transmitter.Service.Tests
 		[Test]
 		public void Retriever_GetAllElementsByFilterNull_RetrunsOneElement()
 		{
-			List<Customer> customersResult = null;//  DbCRUD.Retriever<Customer>().GetByFilterAsync(null).Result;
-
-			Assert.AreEqual(Context.Customers.Count(), customersResult.Count);
-		}
-
-		[Test]
-		public void Retriever_GetAllElementsByAction_RetrunsOneElement()
-		{
-			List<Customer> customersResult = null;// DbCRUD.Retriever<Customer>().GetByAction(r => r.FirstName.ToUpper().Contains("angry".ToUpper())).Result;
-
-			Assert.AreEqual(1, customersResult.Count);
-		}
-
-		[Test]
-		public void Retriever_GetAllElementsByActionNull_RetrunsOneElement()
-		{
-			List<Customer> customersResult = null;//  DbCRUD.Retriever<Customer>().GetByAction(null).Result;
+			List<Customer> customersResult = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(null).Result;
 
 			Assert.AreEqual(Context.Customers.Count(), customersResult.Count);
 		}
@@ -78,7 +75,10 @@ namespace Lailts.Transmitter.Service.Tests
 			Context.Add(newCustomer);
 			Context.SaveChanges();
 
-			Customer customer = null;//  DbCRUD.Retriever<Customer>().GetById(newCustomer.Id).Result;
+			var filter = CustomerFilter.Create()
+				.SetId(newCustomer.Id);
+
+			Customer customer = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result.Single();
 			customer.FirstName += "_changed";
 			Context.SaveChanges();
 
@@ -93,7 +93,10 @@ namespace Lailts.Transmitter.Service.Tests
 			Context.Add(newCustomer);
 			Context.SaveChanges();
 
-			Customer customer = null;//  DbCRUD.RetrieverAsNotTracking<Customer>().GetById(newCustomer.Id).Result;
+			var filter = CustomerFilter.Create()
+				.SetId(newCustomer.Id);
+
+			Customer customer = CRUDBuilder.Build<CustomerQuery>().ApplyFilterAsNoTraking(filter).Result.Single();
 			customer.FirstName += "_changed";
 			Context.SaveChanges();
 

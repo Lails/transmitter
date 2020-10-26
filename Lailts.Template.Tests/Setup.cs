@@ -1,6 +1,6 @@
 ﻿using Lails.DBContext;
-using Lails.Transmitter;
-using Lails.Transmitter.DbCrud;
+using Lails.Transmitter.CrudBuilder;
+using Lails.Transmitter.Extansions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -13,7 +13,7 @@ namespace Lailts.Transmitter.Tests
 	public class Setup
 	{
 		protected LailsDbContext Context;
-		protected ICRUDBuilder<LailsDbContext> CRUDBuilder;
+		protected ICrudBuilder<LailsDbContext> CRUDBuilder;
 
 		[OneTimeSetUp]
 		public void SetUp()
@@ -26,13 +26,13 @@ namespace Lailts.Transmitter.Tests
 				.AddDbContext<LailsDbContext>((serviceProvider, options) => options.UseInMemoryDatabase("LailsDbContext").UseInternalServiceProvider(serviceProvider));
 
 			services
-				.AddDbCRUD<LailsDbContext>();
+				.AddDbCrud<LailsDbContext>();
 
 			var provider = services.BuildServiceProvider();
 
 
 			Context = (LailsDbContext)provider.GetService(typeof(LailsDbContext));
-			CRUDBuilder = (ICRUDBuilder<LailsDbContext>)provider.GetService(typeof(ICRUDBuilder<LailsDbContext>));
+			CRUDBuilder = (ICrudBuilder<LailsDbContext>)provider.GetService(typeof(ICrudBuilder<LailsDbContext>));
 
 		}
 
@@ -42,7 +42,7 @@ namespace Lailts.Transmitter.Tests
 		}
 
 
-		public static CustomerStruct TestCustomer1 = new CustomerStruct { FirstName = "Angry", LastName = "Birdth", Address = "Sydnay" };
+		public static CustomerStruct TestCustomer1 = new CustomerStruct { FirstName = "Angry", LastName = "Birdth", Address = "Sydney" };
 		public static CustomerStruct TestCustomer2 = new CustomerStruct { FirstName = "Red", LastName = "Birdth", Address = "Melbourne" };
 		public struct CustomerStruct
 		{

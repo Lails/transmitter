@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Lails.Transmitter.BaseCommands
 {
-	public abstract class BaseCreate<TDbContext, TData> : BaseCRUD<TDbContext>
+	public abstract class BaseCreate<TDbContext, TData> : BaseCrudOperations<TDbContext>
 		where TData : class
 		where TDbContext : DbContext
 	{

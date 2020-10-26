@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Lails.Transmitter.CrudOperations
 {
-	public abstract class BaseCRUD<TDbContext>
+	public abstract class BaseCrudOperations<TDbContext>
 		where TDbContext : DbContext
 	{
-		internal BaseCRUD() { }
+		internal BaseCrudOperations() { }
 
 		internal IDbCRUD<TDbContext> _dbCRUD;
 		internal static string DbCRUDFieldName => nameof(_dbCRUD);

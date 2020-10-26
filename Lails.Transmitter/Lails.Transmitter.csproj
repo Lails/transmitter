@@ -8,8 +8,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Lails.Transmitter.Retriever\Lails.Transmitter.Retriever.csproj" />
-  </ItemGroup>
-
 </Project>

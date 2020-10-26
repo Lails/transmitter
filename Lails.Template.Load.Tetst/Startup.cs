@@ -1,6 +1,6 @@
 ﻿using Lails.DBContext;
 using Lails.Template.Load.Tetst.Consumers;
-using Lails.Transmitter.DbCrud;
+using Lails.Transmitter.Extansions;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +32,7 @@ namespace Lails.Template.Load.Tetst
 				.AddTransient<LailsDbContext>();
 
 			services
-				.AddDbCRUD<LailsDbContext>();
+				.AddDbCrud<LailsDbContext>();
 
 			services.AddMvc(r => { r.EnableEndpointRouting = false; }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 

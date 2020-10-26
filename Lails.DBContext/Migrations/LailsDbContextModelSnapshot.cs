@@ -45,10 +45,7 @@ namespace Lails.Transmitter.DBContext.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("CustomerId1")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Date")
@@ -56,7 +53,7 @@ namespace Lails.Transmitter.DBContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Invoices");
                 });
@@ -65,7 +62,7 @@ namespace Lails.Transmitter.DBContext.Migrations
                 {
                     b.HasOne("Lails.DBContext.Customer", "Customer")
                         .WithMany("Invoices")
-                        .HasForeignKey("CustomerId1");
+                        .HasForeignKey("CustomerId");
                 });
 #pragma warning restore 612, 618
         }

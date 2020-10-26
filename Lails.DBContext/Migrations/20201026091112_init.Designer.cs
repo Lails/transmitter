@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Lails.Transmitter.DBContext.Migrations
 {
     [DbContext(typeof(LailsDbContext))]
-    [Migration("20201010103048_Init")]
-    partial class Init
+    [Migration("20201026091112_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,10 +47,7 @@ namespace Lails.Transmitter.DBContext.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("CustomerId1")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Date")
@@ -58,7 +55,7 @@ namespace Lails.Transmitter.DBContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Invoices");
                 });
@@ -67,7 +64,7 @@ namespace Lails.Transmitter.DBContext.Migrations
                 {
                     b.HasOne("Lails.DBContext.Customer", "Customer")
                         .WithMany("Invoices")
-                        .HasForeignKey("CustomerId1");
+                        .HasForeignKey("CustomerId");
                 });
 #pragma warning restore 612, 618
         }

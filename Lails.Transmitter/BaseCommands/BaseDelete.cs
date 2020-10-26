@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Lails.Transmitter.BaseCommands
 {
-	public abstract class BaseDelete<TData, TDbContext> : BaseCRUD<TDbContext>
+	public abstract class BaseDelete<TData, TDbContext> : BaseCrudOperations<TDbContext>
 		where TData : class
 		where TDbContext : DbContext
 	{

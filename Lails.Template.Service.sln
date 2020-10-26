@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Template.Service", "Lails.Template.Service\Lails.Template.Service.csproj", "{F297999F-DB1A-42CA-AD9E-74A5DF15494A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lailts.Transmitter.Tests", "Lailts.Template.Service.Tests\Lailts.Transmitter.Tests.csproj", "{35A68514-2C22-44E2-8D2C-6F4C2531EFB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lailts.Transmitter.Tests", "Lailts.Template.Tests\Lailts.Transmitter.Tests.csproj", "{35A68514-2C22-44E2-8D2C-6F4C2531EFB6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter", "Lails.Transmitter\Lails.Transmitter.csproj", "{B4FFAD9B-0F77-4F15-97F0-53A6C3824215}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter.DBContext", "Lails.DBContext\Lails.Transmitter.DBContext.csproj", "{8787CA9C-445A-402D-9289-6B63A5595756}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter.Retriever", "Lails.Transmitter.Retriever\Lails.Transmitter.Retriever.csproj", "{DFB42146-6431-4664-AD9A-0B7BEAA2C399}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lails.Transmitter.UtilityClasses", "Lails.Transmitter.UtilityClasses\Lails.Transmitter.UtilityClasses.csproj", "{5A87C6FB-9B3D-4150-9A1D-5BA603CE99EA}"
 EndProject
@@ -25,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F297999F-DB1A-42CA-AD9E-74A5DF15494A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F297999F-DB1A-42CA-AD9E-74A5DF15494A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F297999F-DB1A-42CA-AD9E-74A5DF15494A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F297999F-DB1A-42CA-AD9E-74A5DF15494A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35A68514-2C22-44E2-8D2C-6F4C2531EFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35A68514-2C22-44E2-8D2C-6F4C2531EFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35A68514-2C22-44E2-8D2C-6F4C2531EFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,10 +33,6 @@ Global
 		{8787CA9C-445A-402D-9289-6B63A5595756}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8787CA9C-445A-402D-9289-6B63A5595756}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8787CA9C-445A-402D-9289-6B63A5595756}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DFB42146-6431-4664-AD9A-0B7BEAA2C399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFB42146-6431-4664-AD9A-0B7BEAA2C399}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFB42146-6431-4664-AD9A-0B7BEAA2C399}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFB42146-6431-4664-AD9A-0B7BEAA2C399}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5A87C6FB-9B3D-4150-9A1D-5BA603CE99EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5A87C6FB-9B3D-4150-9A1D-5BA603CE99EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A87C6FB-9B3D-4150-9A1D-5BA603CE99EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
