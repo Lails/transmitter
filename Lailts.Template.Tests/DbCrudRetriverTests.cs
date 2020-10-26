@@ -78,7 +78,7 @@ namespace Lailts.Transmitter.Service.Tests
 			Context.SaveChanges();
 
 			var reloadedCustomer = Context.Customers.FirstOrDefault(r => r.Id == newCustomer.Id);
-			Assert.AreEqual(reloadedCustomer.FirstName, customer.FirstName);
+			Assert.AreEqual(reloadedCustomer.FirstName, MethodBase.GetCurrentMethod().Name + "_changed");
 		}
 		[Test]
 		public void RetrieverAsNoTracking_CheckNoTracking_ReturnsNoChanges()
