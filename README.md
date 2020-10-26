@@ -4,58 +4,60 @@
 
 #### Add CRUD into IServiceCollection: 
 ```C#
-	Services.AddTransient<IDbCRUD<YOURDbContext>, DbCRUD<YOURDbContext>>();
+	Services.AddDbCrud<YOURDbContext>();
 ```
 
 #### Create,Update,Delete operations:
 ```C#
+	use inject for using builder.
+	ICrudBuilder<YOURDbContext> cRUDBuilder
+
 	//Create
-	DbCRUD.For<Customer>().CreateAsync(customer).Wait();
- 	DbCRUD.For<Customer[]>().CreateAsync(customers).Wait();
+	await _cRUDBuilder.Build<CustomerCreate>().Execute(customer);
+	
+		example CusomterCreate:	
+		public class CustomerCreate : BaseCreate<YOURDbContext, Customer> {}
+		public class CustomersCreate : BaseCreate<YOURDbContext, List<Customer>> {}
+	
  	///Update
-	DbCRUD.For<Customer>().UpdateAsync(customer).Wait();
- 	DbCRUD.For<Customer[]>().UpdateAsync(customers).Wait();
+	await _cRUDBuilder.Build<CustomerUpdate>().Execute(customer);
 	///Delete
-	DbCRUD.For<Customer>().DeleteAsync(customer).Wait();
- 	DbCRUD.For<Customer[]>().DeleteAsync(customers).Wait();
+	await _cRUDBuilder.Build<CustomerDelete>().Execute(customer);
+	
+	
 ``` 
 
 #### Read operations:
 ```C#
-	//GetById
-	var customerResult = DbCRUD.Retriever<Customer>().GetById(customer.Id).Result;
-	
-	//GetByFilterAsync
-	var filter = CustomerRetriver.Create().SetFirstName(firstName);	
-	var customersResult = DbCRUD.Retriever<Customer>().GetByFilterAsync(filter).Result;
-	
-	// GetByAction
-	var customersResult = DbCRUD.Retriever<Customer>()
-		.GetByAction(r => r.FirstName.ToUpper().Contains("Red".ToUpper())).Result;
+ 
+	//filter example:	
+	CustomerFilter filter = new CustomerFilter { Id = customer.Id };
+	var r = await _cRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter);
 	
 	
-	//Here is class example for making filter
-	//public class CustomerRetriver : BaseRetriver<Customer, LailsDbContext>
+	Here is class example for making filter
+	
+
+	//public class CustomerQuery : BaseQuery<Customer, CustomerFilter, YOURDbContext>
 	//{
-
-	//	public static CustomerRetriver Create() => new CustomerRetriver();
-	//	public override IQueryable<Customer> QueryDefinition()
+	//	public override IQueryable<Customer> QueryDefinition(ref IQueryable<Customer> query)
 	//	{
-	//		var query = Query;
+	//		return query; 
+	//	}
 
-	//		if (FirstName?.Length > 0)
+	//	public override IQueryable<Customer> QueryFilter(ref IQueryable<Customer> query, CustomerFilter filter)
+	//	{
+	//		if (filter.Id.HasValue)
 	//		{
-	//			query = query.Where(r => r.FirstName == FirstName);
+	//			query = query.Where(r => r.Id == filter.Id);
 	//		}
+
 	//		return query;
 	//	}
+	//}
 
-
-	//	public string FirstName { get; private set; }
-	//	public CustomerRetriver SetFirstName(string firstName)
-	//	{
-	//		FirstName = firstName;
-	//		return this;
-	//	}
+	//public class CustomerFilter : IQueryFilter
+	//{
+	//	public Guid? Id { get; set; }
 	//}
 ``` 
