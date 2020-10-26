@@ -39,10 +39,7 @@ namespace Lailts.Transmitter.Service.Tests
 			var filter = CustomerFilter.Create()
 				.SetId(customer.Id);
 
-
 			List<Customer> customersResult = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
-
-			var r = Context.Customers.FirstOrDefault(r => r.Id == customer.Id);
 
 			Assert.AreEqual(customer, customersResult.Single());
 		}
@@ -77,13 +74,11 @@ namespace Lailts.Transmitter.Service.Tests
 
 			var filter = CustomerFilter.Create()
 				.SetId(newCustomer.Id);
-
 			Customer customer = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result.Single();
 			customer.FirstName += "_changed";
 			Context.SaveChanges();
 
 			var reloadedCustomer = Context.Customers.FirstOrDefault(r => r.Id == newCustomer.Id);
-
 			Assert.AreEqual(reloadedCustomer.FirstName, customer.FirstName);
 		}
 		[Test]
@@ -101,7 +96,6 @@ namespace Lailts.Transmitter.Service.Tests
 			Context.SaveChanges();
 
 			var reloadedCustomer = Context.Customers.FirstOrDefault(r => r.Id == newCustomer.Id);
-
 			Assert.AreEqual(reloadedCustomer.FirstName, MethodBase.GetCurrentMethod().Name);
 		}
 		//TODO: Add test, what will write AsNotraking in QueryDefinition
