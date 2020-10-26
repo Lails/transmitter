@@ -27,7 +27,7 @@ namespace Lailts.Transmitter.Tests
 		{
 			var customer = new Customer { FirstName = "Elizabeth", LastName = "Lincoln", Address = "23 Tsawassen Blvd.", };
 
-			CRUDBuilder.Build<CustomerCreate>().Execute(customer).Wait();
+			CrudBuilder.Build<CustomerCreate>().Execute(customer).Wait();
 
 			var existingCustomer = Context.Customers.Single(r => r.Id == customer.Id);
 			Assert.AreEqual(existingCustomer?.FirstName, customer.FirstName);
@@ -41,7 +41,7 @@ namespace Lailts.Transmitter.Tests
 			var customer2 = new Customer { FirstName = "CreateRangeAsync", LastName = "Lincoln", Address = "23 Tsawassen Blvd.", };
 			var customers = new[] { customer1, customer2 };
 
-			CRUDBuilder.Build<CustomersCreate>().Execute(customers.ToList()).Wait();
+			CrudBuilder.Build<CustomersCreate>().Execute(customers.ToList()).Wait();
 
 			Assert.AreEqual(countsBeforeCreate + customers.Length, Context.Customers.Count());
 		}
@@ -50,7 +50,7 @@ namespace Lailts.Transmitter.Tests
 		{
 			Customer customer = null;
 
-			var ex = Assert.Throws<AggregateException>(() => { CRUDBuilder.Build<CustomerCreate>().Execute(customer).Wait(); });
+			var ex = Assert.Throws<AggregateException>(() => { CrudBuilder.Build<CustomerCreate>().Execute(customer).Wait(); });
 
 			Assert.AreEqual(ex.InnerException.GetType(), typeof(ArgumentNullException));
 		}
@@ -62,7 +62,7 @@ namespace Lailts.Transmitter.Tests
 			var newFirstName = MethodBase.GetCurrentMethod().Name;
 
 			customer.FirstName = newFirstName;
-			CRUDBuilder.Build<CustomerUpdate>().Execute(customer).Wait();
+			CrudBuilder.Build<CustomerUpdate>().Execute(customer).Wait();
 
 			var changedCustomer = Context.Customers.Single(r => r.FirstName == newFirstName);
 			Assert.AreEqual(changedCustomer.FirstName, newFirstName);
@@ -78,7 +78,7 @@ namespace Lailts.Transmitter.Tests
 			customer.FirstName = newFirstName;
 			customer2.FirstName = newFirstName;
 
-			CRUDBuilder.Build<CustomersUpdate>().Execute(new[] { customer, customer2 }).Wait();
+			CrudBuilder.Build<CustomersUpdate>().Execute(new[] { customer, customer2 }).Wait();
 
 			var customers = Context.Customers.Where(r => r.FirstName == newFirstName).ToList();
 			Assert.AreEqual(customers.Count, 2);
@@ -89,7 +89,7 @@ namespace Lailts.Transmitter.Tests
 		{
 			var customer = Context.Customers.Single(r => r.FirstName == TestCustomer1.FirstName);
 
-			CRUDBuilder.Build<CustomerDelete>().Execute(customer).Wait();
+			CrudBuilder.Build<CustomerDelete>().Execute(customer).Wait();
 
 			var deletedCustomer = Context.Customers.FirstOrDefault(r => r.FirstName == TestCustomer1.FirstName);
 			Assert.IsNull(deletedCustomer);
@@ -101,7 +101,7 @@ namespace Lailts.Transmitter.Tests
 			var customer = Context.Customers.Single(r => r.FirstName == TestCustomer1.FirstName);
 			var customer2 = Context.Customers.Single(r => r.FirstName == TestCustomer2.FirstName);
 
-			CRUDBuilder.Build<CustomersDelete>().Execute(new[] { customer, customer2 }).Wait();
+			CrudBuilder.Build<CustomersDelete>().Execute(new[] { customer, customer2 }).Wait();
 
 			var customers = Context.Customers.Where(r => r.FirstName == TestCustomer1.FirstName || r.FirstName == TestCustomer2.FirstName).ToList();
 			Assert.AreEqual(customers.Count, 0);

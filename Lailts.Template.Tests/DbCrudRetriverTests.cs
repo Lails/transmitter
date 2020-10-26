@@ -39,7 +39,7 @@ namespace Lailts.Transmitter.Service.Tests
 			var filter = CustomerFilter.Create()
 				.SetId(customer.Id);
 
-			List<Customer> customersResult = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
+			List<Customer> customersResult = CrudBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
 
 			Assert.AreEqual(customer, customersResult.Single());
 		}
@@ -52,7 +52,7 @@ namespace Lailts.Transmitter.Service.Tests
 			var filter = CustomerFilter.Create()
 				.SetfirstName(firstName);
 
-			List<Customer> customersResult = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
+			List<Customer> customersResult = CrudBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
 
 			Assert.AreEqual(expectedCount, customersResult.Count);
 		}
@@ -60,7 +60,7 @@ namespace Lailts.Transmitter.Service.Tests
 		[Test]
 		public void Retriever_GetAllElementsByFilterNull_RetrunsOneElement()
 		{
-			List<Customer> customersResult = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(null).Result;
+			List<Customer> customersResult = CrudBuilder.Build<CustomerQuery>().ApplyFilter(null).Result;
 
 			Assert.AreEqual(Context.Customers.Count(), customersResult.Count);
 		}
@@ -74,7 +74,7 @@ namespace Lailts.Transmitter.Service.Tests
 
 			var filter = CustomerFilter.Create()
 				.SetId(newCustomer.Id);
-			Customer customer = CRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result.Single();
+			Customer customer = CrudBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result.Single();
 			customer.FirstName += "_changed";
 			Context.SaveChanges();
 
@@ -91,7 +91,7 @@ namespace Lailts.Transmitter.Service.Tests
 			var filter = CustomerFilter.Create()
 				.SetId(newCustomer.Id);
 
-			Customer customer = CRUDBuilder.Build<CustomerQuery>().ApplyFilterAsNoTraking(filter).Result.Single();
+			Customer customer = CrudBuilder.Build<CustomerQuery>().ApplyFilterAsNoTraking(filter).Result.Single();
 			customer.FirstName += "_changed";
 			Context.SaveChanges();
 

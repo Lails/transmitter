@@ -13,11 +13,11 @@
 	ICrudBuilder<YOURDbContext> cRUDBuilder
 
 	//Create
-	await _cRUDBuilder.Build<CustomerCreate>().Execute(customer);	
+	await _crudBuilder.Build<CustomerCreate>().Execute(customer);	
  	///Update
-	await _cRUDBuilder.Build<CustomerUpdate>().Execute(customer);
+	await _crudBuilder.Build<CustomerUpdate>().Execute(customer);
 	///Delete
-	await _cRUDBuilder.Build<CustomerDelete>().Execute(customer);
+	await _crudBuilder.Build<CustomerDelete>().Execute(customer);
 	
 	
 	//Example createClass class:	
@@ -32,7 +32,7 @@
  
 	//filter example:	
 	CustomerFilter filter = new CustomerFilter { Id = customer.Id };
-	var customers = await _cRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter);
+	var customers = await _crudBuilder.Build<CustomerQuery>().ApplyFilter(filter);
 	//Here the variable "customers" every time will be List<Customer>.
 	
 	//Filter example.

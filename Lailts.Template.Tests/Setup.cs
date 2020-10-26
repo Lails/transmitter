@@ -13,7 +13,7 @@ namespace Lailts.Transmitter.Tests
 	public class Setup
 	{
 		protected LailsDbContext Context;
-		protected ICrudBuilder<LailsDbContext> CRUDBuilder;
+		protected ICrudBuilder<LailsDbContext> CrudBuilder;
 
 		[OneTimeSetUp]
 		public void SetUp()
@@ -32,7 +32,7 @@ namespace Lailts.Transmitter.Tests
 
 
 			Context = (LailsDbContext)provider.GetService(typeof(LailsDbContext));
-			CRUDBuilder = (ICrudBuilder<LailsDbContext>)provider.GetService(typeof(ICrudBuilder<LailsDbContext>));
+			CrudBuilder = (ICrudBuilder<LailsDbContext>)provider.GetService(typeof(ICrudBuilder<LailsDbContext>));
 
 		}
 

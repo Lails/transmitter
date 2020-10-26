@@ -13,11 +13,11 @@ namespace Lails.Template.Load.Tetst.Consumers
 {
 	public class LoadTestConsumer : IConsumer<ILoadTestEvent>
 	{
-		readonly ICrudBuilder<LailsDbContext> _cRUDBuilder;
+		readonly ICrudBuilder<LailsDbContext> _crudBuilder;
 		readonly LailsDbContext _lailsDbContext;
 		public LoadTestConsumer(ICrudBuilder<LailsDbContext> cRUDBuilder, LailsDbContext lailsDbContext)
 		{
-			_cRUDBuilder = cRUDBuilder;
+			_crudBuilder = cRUDBuilder;
 			_lailsDbContext = lailsDbContext;
 		}
 		public async Task Consume(ConsumeContext<ILoadTestEvent> context)
@@ -30,11 +30,11 @@ namespace Lails.Template.Load.Tetst.Consumers
 				Invoices = new List<Invoice> { new Invoice { Date = DateTime.UtcNow } }
 			};
 
-			await _cRUDBuilder.Build<CustomerCreate>().Execute(customer);
+			await _crudBuilder.Build<CustomerCreate>().Execute(customer);
 
 
 			CustomerFilter filter = new CustomerFilter { Id = customer.Id };
-			var r = await _cRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter);
+			var r = await _crudBuilder.Build<CustomerQuery>().ApplyFilter(filter);
 
 
 			var r2 = await _lailsDbContext.Set<Customer>().AsQueryable().Where(r => r.Id == customer.Id).AsTracking().ToListAsync();
