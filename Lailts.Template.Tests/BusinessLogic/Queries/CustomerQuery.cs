@@ -1,5 +1,6 @@
 ﻿using Lails.DBContext;
 using Lails.Transmitter.BaseQuery;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
