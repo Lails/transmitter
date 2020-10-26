@@ -9,20 +9,20 @@
 
 #### Create,Update,Delete operations:
 ```C#
-	use inject for using builder.
+	//Use DI for using builder.
 	ICrudBuilder<YOURDbContext> cRUDBuilder
 
 	//Create
-	await _cRUDBuilder.Build<CustomerCreate>().Execute(customer);
-	
-		example CusomterCreate:	
-		public class CustomerCreate : BaseCreate<YOURDbContext, Customer> {}
-		public class CustomersCreate : BaseCreate<YOURDbContext, List<Customer>> {}
-	
+	await _cRUDBuilder.Build<CustomerCreate>().Execute(customer);	
  	///Update
 	await _cRUDBuilder.Build<CustomerUpdate>().Execute(customer);
 	///Delete
 	await _cRUDBuilder.Build<CustomerDelete>().Execute(customer);
+	
+	
+	//Example createClass class:	
+	public class CustomerCreate : BaseCreate<YOURDbContext, Customer> {}
+	public class CustomersCreate : BaseCreate<YOURDbContext, List<Customer>> {}
 	
 	
 ``` 
@@ -35,9 +35,7 @@
 	var r = await _cRUDBuilder.Build<CustomerQuery>().ApplyFilter(filter);
 	
 	
-	Here is class example for making filter
-	
-
+	//Filter example.
 	//public class CustomerQuery : BaseQuery<Customer, CustomerFilter, YOURDbContext>
 	//{
 	//	public override IQueryable<Customer> QueryDefinition(ref IQueryable<Customer> query)
