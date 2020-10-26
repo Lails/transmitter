@@ -36,9 +36,9 @@ namespace Lailts.Transmitter.Service.Tests
 			};
 			Context.Customers.Add(customer);
 			Context.SaveChanges();
+
 			var filter = CustomerFilter.Create()
 				.SetId(customer.Id);
-
 			List<Customer> customersResult = CrudBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
 
 			Assert.AreEqual(customer, customersResult.Single());
@@ -51,7 +51,6 @@ namespace Lailts.Transmitter.Service.Tests
 		{
 			var filter = CustomerFilter.Create()
 				.SetfirstName(firstName);
-
 			List<Customer> customersResult = CrudBuilder.Build<CustomerQuery>().ApplyFilter(filter).Result;
 
 			Assert.AreEqual(expectedCount, customersResult.Count);
@@ -90,7 +89,6 @@ namespace Lailts.Transmitter.Service.Tests
 
 			var filter = CustomerFilter.Create()
 				.SetId(newCustomer.Id);
-
 			Customer customer = CrudBuilder.Build<CustomerQuery>().ApplyFilterAsNoTraking(filter).Result.Single();
 			customer.FirstName += "_changed";
 			Context.SaveChanges();
